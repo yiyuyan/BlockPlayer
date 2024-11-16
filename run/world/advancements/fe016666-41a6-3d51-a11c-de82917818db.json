@@ -1,0 +1,29 @@
+{
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2024-11-16 20:34:52 +0800"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:beach": "2024-11-16 20:55:41 +0800",
+      "minecraft:forest": "2024-11-16 20:50:10 +0800",
+      "minecraft:plains": "2024-11-16 20:34:53 +0800"
+    },
+    "done": false
+  },
+  "minecraft:recipes/misc/flower_banner_pattern": {
+    "criteria": {
+      "has_oxeye_daisy": "2024-11-16 20:40:21 +0800"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/light_gray_dye_from_oxeye_daisy": {
+    "criteria": {
+      "has_oxeye_daisy": "2024-11-16 20:40:21 +0800"
+    },
+    "done": true
+  },
+  "DataVersion": 3465
+}

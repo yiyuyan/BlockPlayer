@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cn.ksmcbrigade.wai.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "wai.refmap.json",
+  "mixins": [
+    "PlayerMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
