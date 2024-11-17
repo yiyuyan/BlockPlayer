@@ -46,7 +46,7 @@ public class BlockPlayer {
                     LOGGER.info("Client sync.");
                     if(context.get().getSender()==null) return;
                     context.get().getSender().serverLevel().players().stream().filter(player -> ((BlockInfo)player).get()!=null).forEach(player -> {
-                        channel.sendTo(new NetworkMessage(player.getId(),ForgeRegistries.BLOCKS.getKey(((BlockInfo)player).get().getBlockState().getBlock())), Objects.requireNonNull(context.get().getSender()).connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+                        channel.sendTo(new NetworkMessage(player.getId(),ForgeRegistries.BLOCKS.getKey(((BlockInfo)player).get().getBlockState().getBlock()),false), Objects.requireNonNull(context.get().getSender()).connection.connection, NetworkDirection.PLAY_TO_CLIENT);
                     });
                 });
                 context.get().setPacketHandled(true);
@@ -64,9 +64,20 @@ public class BlockPlayer {
             BlockState blockState = BlockStateArgument.getBlock(commandContext,"block").getState().getBlock().defaultBlockState();
             entity.blockState = blockState;
             ((BlockInfo) Objects.requireNonNull(commandContext.getSource().getPlayer())).set(entity);
-            channel.send(PacketDistributor.ALL.noArg(),new NetworkMessage(commandContext.getSource().getPlayer().getId(),ForgeRegistries.BLOCKS.getKey(blockState.getBlock())));
+            channel.send(PacketDistributor.ALL.noArg(),new NetworkMessage(commandContext.getSource().getPlayer().getId(),ForgeRegistries.BLOCKS.getKey(blockState.getBlock()),false));
             return 0;
         })));
+
+        event.getDispatcher().register(Commands.literal("rest").executes(commandContext -> {
+            try {
+                if(!commandContext.getSource().isPlayer()) return 1;
+                ((BlockInfo) Objects.requireNonNull(commandContext.getSource().getPlayer())).set(null);
+                channel.send(PacketDistributor.ALL.noArg(),new NetworkMessage(commandContext.getSource().getPlayer().getId(),ResourceLocation.tryBuild("bp","empty"),true));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+        }));
     }
 
     @SubscribeEvent

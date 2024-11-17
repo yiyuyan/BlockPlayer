@@ -9,14 +9,15 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public record NetworkMessage(int player, ResourceLocation block) {
+public record NetworkMessage(int player, ResourceLocation block,boolean empty) {
     public static void encode(NetworkMessage msg, FriendlyByteBuf buf){
         buf.writeInt(msg.player);
         buf.writeResourceLocation(msg.block);
+        buf.writeBoolean(msg.empty);
     }
 
     public static NetworkMessage decode(FriendlyByteBuf buf){
-        return new NetworkMessage(buf.readInt(),buf.readResourceLocation());
+        return new NetworkMessage(buf.readInt(),buf.readResourceLocation(),buf.readBoolean());
     }
 
     public static void handle(NetworkMessage msg, Supplier<NetworkEvent.Context> context){

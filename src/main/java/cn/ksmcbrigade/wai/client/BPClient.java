@@ -61,8 +61,14 @@ public class BPClient {
                 }
             }
             if(P!=null){
+                if(msg.empty()){
+                    ((BlockInfo)P).set(null);
+                    return;
+                }
                 Block block = ForgeRegistries.BLOCKS.getValue(msg.block());
-                if(block==null) return;
+                if(block==null){
+                    return;
+                }
                 FallingBlockEntity fallingBlockEntity = EntityType.FALLING_BLOCK.create(Minecraft.getInstance().level);
                 if (fallingBlockEntity != null) {
                     fallingBlockEntity.blockState = block.defaultBlockState();
